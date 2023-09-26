@@ -1,0 +1,39 @@
+/*
+ * app.h
+ *
+ *  Created on: Dec 17, 2022
+ *      Author: dell
+ */
+
+#ifndef APP_H_
+#define APP_H_
+
+#include<avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include"gpio.h"
+#include"timer.h"
+#include"std_types.h"
+#include"common_macros.h"
+#include"led.h"
+#include"push_button.h"
+#include"INT0.h"
+
+/*******************************************************************************
+ *                               Types Declaration                             *
+ *******************************************************************************/
+
+
+typedef enum{ red,yellow,green}LED_STATE;
+
+
+
+/*******************************************************************************
+ *                              Functions Prototypes                           *
+ *******************************************************************************/
+
+void TIMER_ISR_COUNTER(void);
+void INT0_ISR_calledback(void);
+void app(void);
+
+#endif /* APP_H_ */

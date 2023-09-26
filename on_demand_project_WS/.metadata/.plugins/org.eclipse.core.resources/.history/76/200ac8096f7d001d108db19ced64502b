@@ -1,0 +1,123 @@
+#include<avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include"gpio.h"
+#include"timer.h"
+#include"std_types.h"
+#include"common_macros.h"
+#include"led.h"
+#include"push_button.h"
+#include"INT0.h"
+
+
+void TIMER_ISR_COUNTER(void);
+uint8 g_Timer_ticks=0;
+uint8 g_INT0_ticks=0;
+
+int main(void)
+{
+
+
+Timer1_ConfigType TIMER_Configs={0,1000,F_CPU_1024,CTC_MODE};
+Timer1_init(&TIMER_Configs);
+uint8 i=0;
+
+	/*pedestrian*/
+	LED_init(PORTB_ID , PIN0_ID); //red
+	LED_init(PORTB_ID , PIN1_ID) ;//yellow
+	LED_init(PORTB_ID , PIN2_ID); //green
+	/*TRAFFIC*/
+	LED_init(PORTA_ID , PIN0_ID) ;//red
+	LED_init(PORTA_ID , PIN1_ID) ;//yellow
+	LED_init(PORTA_ID , PIN2_ID) ;//green
+
+	BUTTON_init(PORTD_ID , PIN2_ID);
+
+	INT0_init();
+	sei();
+
+
+	/*
+	 * test
+	LED_on(PORTB_ID, PIN1_ID);
+				LED_on(PORTA_ID, PIN1_ID);
+
+				LED_on(PORTB_ID, PIN2_ID);
+					LED_on (PORTA_ID , PIN0_ID) ;
+*/
+	LED_off(PORTB_ID, PIN1_ID);
+			LED_off(PORTA_ID, PIN1_ID);
+
+
+	while(1)
+	{
+
+		g_Timer_ticks=0;
+		LED_on(PORTB_ID, PIN0_ID);//pedestrian red
+ 		LED_on (PORTA_ID , PIN2_ID) ; //car green
+ 		Timer1_setCallBack(TIMER_ISR_COUNTER);
+ 		while(g_Timer_ticks!=5);
+		LED_off(PORTB_ID, PIN0_ID);
+		LED_off (PORTA_ID , PIN2_ID) ;
+
+
+		for(i=0;i<5;i++)
+		{
+
+			TOGGLE_BIT(PORTA,PIN1_ID);
+			TOGGLE_BIT(PORTA,PIN1_ID);
+//			LED_toggle(PORTB_ID, PIN1_ID);
+//			LED_toggle(PORTA_ID, PIN1_ID);
+
+		}
+//
+//if(SET_BIT(PORTB_ID,PIN1_ID))
+//{
+		LED_off(PORTB_ID, PIN1_ID);
+		LED_off(PORTA_ID, PIN1_ID);
+//}
+/*to be sure the yellow will be off*/
+
+
+
+		g_Timer_ticks=0;
+		LED_on(PORTB_ID, PIN2_ID);
+		LED_on (PORTA_ID , PIN0_ID) ;
+		Timer1_setCallBack(TIMER_ISR_COUNTER);
+		while(g_Timer_ticks!=5);
+		LED_off(PORTB_ID, PIN2_ID);//ped. green
+		LED_off (PORTA_ID , PIN0_ID) ; //car red
+
+
+
+	}
+
+}
+
+
+
+
+
+void INT0_ISR_calledback(void)
+{
+	g_INT0_ticks++;
+}
+
+
+
+
+/*
+ * Description :
+ * It is just a incremented counter
+ * used to be called back by the timer
+ * which set to make an interrupt every 1 second
+ * so the counter's value will increase every 1 second
+ */
+
+
+
+void TIMER_ISR_COUNTER(void)
+{
+
+	g_Timer_ticks++;
+}

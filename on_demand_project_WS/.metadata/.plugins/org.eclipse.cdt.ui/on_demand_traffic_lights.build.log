@@ -1,0 +1,56 @@
+03:09:18 **** Incremental Build of configuration Debug for project on_demand_traffic_lights ****
+make all 
+Building file: ../application/app.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=1000000UL -MMD -MP -MF"application/app.d" -MT"application/app.o" -c -o "application/app.o" "../application/app.c"
+In file included from ../application/../application/app.h:12,
+                 from ../application/app.c:1:
+c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../application/app.c
+ 
+Building file: ../application/main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=1000000UL -MMD -MP -MF"application/main.d" -MT"application/main.o" -c -o "application/main.o" "../application/main.c"
+In file included from ../application/../application/app.h:12,
+                 from ../application/main.c:1:
+c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../application/main.c
+ 
+Building file: ../HAL/push_button.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=1000000UL -MMD -MP -MF"HAL/push_button.d" -MT"HAL/push_button.o" -c -o "HAL/push_button.o" "../HAL/push_button.c"
+In file included from ../HAL/push_button.c:1:
+c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../HAL/push_button.c
+ 
+Building target: on_demand_traffic_lights.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,on_demand_traffic_lights.map -mmcu=atmega32 -o "on_demand_traffic_lights.elf"  ./application/app.o ./application/main.o  ./Utilities/INT0.o  ./MCAL/gpio.o ./MCAL/timer.o  ./HAL/led.o ./HAL/push_button.o   
+Finished building target: on_demand_traffic_lights.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S on_demand_traffic_lights.elf  >"on_demand_traffic_lights.lss"
+Finished building: on_demand_traffic_lights.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex on_demand_traffic_lights.elf  "on_demand_traffic_lights.hex"
+Finished building: on_demand_traffic_lights.hex
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 on_demand_traffic_lights.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:    7816 bytes (23.9% Full)
+(.text + .data + .bootloader)
+
+Data:         22 bytes (1.1% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+03:09:19 Build Finished. 0 errors, 3 warnings. (took 1s.179ms)
+

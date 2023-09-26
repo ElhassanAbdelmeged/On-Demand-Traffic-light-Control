@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;on_demand_traffic_lights/INT.c&apos; to &apos;INT0.c&apos;" description="Rename resource &apos;INT.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="INT.c" name="INT0.c" stamp="1671018686202" updateReferences="true"/>
+</session>

@@ -1,0 +1,17 @@
+#include <util/delay.h>
+#include"../HAL/push_button.h"
+
+Error_state BUTTON_init(uint8 port_num, uint8 pin_num)
+{
+
+	Error_state led_state=valid;
+
+	if(port_num>3||pin_num>7)
+		{
+		Error_state led_state=not_valid;
+		}
+	else{
+	GPIO_setupPinDirection(port_num, pin_num, PIN_INPUT);
+	}
+	return led_state;
+}
